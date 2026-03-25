@@ -6,7 +6,7 @@ const config = {
     development: {
         username: process.env.DEV_DB_USER || 'root',
         password: process.env.DEV_DB_PASSWORD || 'Ujjwal000',
-        database: process.env.DEV_DB_NAME || 'newdb',
+        database: process.env.DEV_DB_NAME || 'testdb',
         host: process.env.DEV_DB_HOST || 'localhost',
         dialect: 'mysql',
         port: process.env.DEV_DB_PORT || 3306

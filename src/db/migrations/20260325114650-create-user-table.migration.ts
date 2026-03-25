@@ -9,6 +9,7 @@ export default {
             email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             role_id INT UNSIGNED NOT NULL,
+            deleted_at TIMESTAMP DEFAULT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
         `);

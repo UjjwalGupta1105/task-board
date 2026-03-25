@@ -16,20 +16,21 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>>{
    declare fullName: string;
    declare email: string;
    declare password: string;
-   declare roleId: number;
+   declare roleId: CreationOptional<number | null>;
+   declare deletedAt :Date;
    declare createdAt: Date;
 
-   declare role?:NonAttribute<any>;
-   declare tasks?:NonAttribute<any[]>;
-   declare projects?:NonAttribute<any[]>;
+//    declare role?:NonAttribute<any>;
+//    declare tasks?:NonAttribute<any[]>;
+//    declare projects?:NonAttribute<any[]>;
 
     // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
     // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
 
     static associations: {
-        role:Association<User,any>;
-        tasks:Association<User,any>;
-        projects:Association<User,any>;
+        // role:Association<User,any>;
+        // tasks:Association<User,any>;
+        // projects:Association<User,any>;
     }
 }
 
@@ -58,13 +59,18 @@ User.init({
 
     roleId: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: true,
+        defaultValue: null
     },
     
     createdAt: {
         type: DataTypes.DATE,
         allowNull: false
     },
+    deletedAt: {
+        type: DataTypes.DATE,
+        defaultValue: null
+    }
 
 
 },{
