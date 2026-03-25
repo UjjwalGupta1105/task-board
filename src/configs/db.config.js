@@ -5,8 +5,8 @@ dotenv.config();
 const config = {
     development: {
         username: process.env.DEV_DB_USER || 'root',
-        password: process.env.DEV_DB_PASSWORD || '1748arijiT#',
-        database: process.env.DEV_DB_NAME || 'workr',
+        password: process.env.DEV_DB_PASSWORD || 'Ujjwal000',
+        database: process.env.DEV_DB_NAME || 'newdb',
         host: process.env.DEV_DB_HOST || 'localhost',
         dialect: 'mysql',
         port: process.env.DEV_DB_PORT || 3306
@@ -29,4 +29,4 @@ const config = {
     }
 };
 
-module.exports = config;
+export default config;
