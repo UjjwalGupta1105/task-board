@@ -14,7 +14,7 @@ class AuthService {
         this.userRepository = userRepository;
     }
 
-    async createService(userData:RegisterUserDto){
+    async createService(userData:RegisterUserDto) : Promise<UserResponse> {
         try {
             const checkUser = await this.userRepository.findByEmail(userData.email);
             if(checkUser){
@@ -43,7 +43,7 @@ class AuthService {
     }
 
 
-    async loginService(userData: LoginUserDto){
+    async loginService(userData: LoginUserDto): Promise<UserResponse> {
         try {
             const checkUser = await this.userRepository.findByEmail(userData.email);
 
@@ -58,7 +58,14 @@ class AuthService {
             }
 
             const jwtToken = createToken({id: checkUser.id, email: checkUser.email});
-            return jwtToken;
+            const userResponse: UserResponse = {
+                id: checkUser.id,
+                fullName: checkUser.fullName,
+                email: checkUser.email,
+                token: jwtToken
+            };
+
+            return userResponse;
 
         } catch (error) {
             logger.error(error);

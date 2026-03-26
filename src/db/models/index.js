@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 'use strict';
 
 const fs = require('fs');
