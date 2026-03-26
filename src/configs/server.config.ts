@@ -5,6 +5,7 @@ type ServerConfig = {
     SALT :number
     JWT_SECRET : string
     JWT_EXPRIRES_IN : string
+    ENVIRONMENT : boolean
 }
 
 type DBConfig = {
@@ -24,7 +25,8 @@ export const serverConfig: ServerConfig =  {
     PORT: Number(process.env.PORT) || 3000,
     SALT : Number(process.env.SALT),
     JWT_SECRET : String(process.env.JWT_SECRET),
-    JWT_EXPRIRES_IN : String(process.env.JWT_EXPRIRES_IN)
+    JWT_EXPRIRES_IN : String(process.env.JWT_EXPRIRES_IN),
+    ENVIRONMENT : Boolean(process.env.DEV_ENVIRONMENT)
 };
 
 export const dbConfig: DBConfig = {

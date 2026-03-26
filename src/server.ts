@@ -23,4 +23,5 @@ app.listen(serverConfig.PORT, async () => {
     logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
     await sequelize.authenticate();
     logger.info('Database connection has been established successfully.');
+    if(serverConfig.ENVIRONMENT) console.log(`Server is running on http://localhost:${serverConfig.PORT}`);
 });
