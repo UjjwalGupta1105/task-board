@@ -1,54 +1,56 @@
-// import { NextFunction, Request, Response } from 'express';
-// import { StatusCodes } from 'http-status-codes';
-// import { LoginUserDto, RegisterUserDto } from '../dtos/user.dto';
-// import RoleRepository from '../repository/role.repository';
-// import UserRepository from '../repository/user.repository';
-// import UserProfileRepository from '../repository/userProfile.repository';
-// import UserRoleRepository from '../repository/userRole.repository';
-// import AuthService from '../services/auth.service';
-// import logger from '../configs/logger.config';
+import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
-// const userRepository = new UserRepository();
-// const userProfileRepository = new UserProfileRepository();
-// const userRoleRepository = new UserRoleRepository();
-// const roleRepository = new RoleRepository();
+import logger from '../configs/logger.config';
+import { LoginUserDto, RegisterUserDto } from '../dtos/user.dto';
+import UserRepository from '../repository/user.repository';
+import AuthService from '../services/auth.service';
 
-// const authService = new AuthService(userRepository, userProfileRepository, roleRepository, userRoleRepository);
+const userRepository = new UserRepository();
+
+const authService = new AuthService(userRepository);
 
 
-// async function registerHandler(req: Request, res: Response, next: NextFunction) { 
-//     try {
-//         const requestBody: RegisterUserDto = req.body;
-//         const response = await authService.createService(requestBody);
-//         res.status(StatusCodes.CREATED).json({
-//             success: true,
-//             message: 'User Created Successfully',
-//             data : response,
-//             error: {}
-//         });
-//     } catch (error) {
-//         logger.error('Error in registerHandler', { error });
-//         next(error);
-//     }
-// }
-// async function loginHandler(req: Request, res: Response, next: NextFunction) {
-//     try{
-//         const requestBody: LoginUserDto = req.body ;
-//         const response = await authService.loginService(requestBody);
-//         res.status(StatusCodes.ACCEPTED).json({
-//             success : true ,
-//             message : 'Login successfull' ,
-//             data : response ,
-//             error : {}
+async function registerHandler(req: Request, res: Response, next: NextFunction) { 
+    try {
+        const requestBody: RegisterUserDto = req.body;
+        const response = await authService.createService(requestBody);
+        console.log(response);
+        res.cookie('jwt', response.token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+        res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: 'User Created Successfully',
+            data : response.data,
+            error: {}
+        });
+    } catch (error) {
+        logger.error('Error in registerHandler', { error });
+        next(error);
+    }
+}
+async function loginHandler(req: Request, res: Response, next: NextFunction) {
+    try{
+        const requestBody: LoginUserDto = req.body ;
+        const response = await authService.loginService(requestBody);
+        res.status(StatusCodes.ACCEPTED).json({
+            success : true ,
+            message : 'Login successfull' ,
+            data : response ,
+            error : {}
 
-//         });
-//     }catch(error){
-//         logger.error('Error in loginHandler', { error });
-//         next(error);
-//     }
-// }
+        });
+    }catch(error){
+        logger.error('Error in loginHandler', { error });
+        next(error);
+    }
+}
 
-// export default {
-//     registerHandler,
-//     loginHandler
-// };
+export default {
+    registerHandler,
+    loginHandler
+};

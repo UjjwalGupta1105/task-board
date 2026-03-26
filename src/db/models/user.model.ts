@@ -1,41 +1,42 @@
 import {
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-  DataTypes,
-  CreationOptional,
-  Association,
-  NonAttribute,
+    // Association,
+    CreationOptional,
+    DataTypes,
+    InferAttributes,
+    InferCreationAttributes,
+    Model,
+    // NonAttribute,
 //   BelongsToManyGetAssociationsMixin,
 } from 'sequelize';
-import sequelize from './sequelize';
+
 import { hashPassword } from '../../utils/auth/auth';
+import sequelize from './sequelize';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>>{
-   declare id: CreationOptional<number>;
-   declare fullName: string;
-   declare email: string;
-   declare password: string;
-   declare roleId: CreationOptional<number | null>;
-   declare deletedAt :Date;
-   declare createdAt: Date;
+    declare id: CreationOptional<number>;
+    declare fullName: string;
+    declare email: string;
+    declare password: string;
+    declare roleId: CreationOptional<number | null>;
+    declare deletedAt :CreationOptional<Date | null>;
+    declare createdAt: CreationOptional<Date | null>;
 
-//    declare role?:NonAttribute<any>;
-//    declare tasks?:NonAttribute<any[]>;
-//    declare projects?:NonAttribute<any[]>;
+    //    declare role?:NonAttribute<any>;
+    //    declare tasks?:NonAttribute<any[]>;
+    //    declare projects?:NonAttribute<any[]>;
 
     // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
     // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
 
-    static associations: {
-        // role:Association<User,any>;
-        // tasks:Association<User,any>;
-        // projects:Association<User,any>;
-    }
+    // static associations: {
+    //     // role:Association<User,any>;
+    //     // tasks:Association<User,any>;
+    //     // projects:Association<User,any>;
+    // };
 }
 
 User.init({
-     id: {
+    id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
@@ -65,6 +66,7 @@ User.init({
     
     createdAt: {
         type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
         allowNull: false
     },
     deletedAt: {
@@ -84,7 +86,6 @@ User.init({
     sequelize,
     underscored: true,
     timestamps: true
-
-})
+});
 
 export default User;
