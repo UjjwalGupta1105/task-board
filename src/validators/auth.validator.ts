@@ -24,3 +24,7 @@ export const loginSchema = z.object({
         .email({ message: 'Invalid email address' }),
     password: z.string({ required_error: 'Password is required' })
 });
+
+export const isAuthenticatedSchema = z.object({
+    authToken: z.string({ required_error: 'Auth token is required' })
+});

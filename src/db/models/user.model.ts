@@ -1,16 +1,17 @@
 import {
-    // Association,
+    Association,
     CreationOptional,
     DataTypes,
     InferAttributes,
     InferCreationAttributes,
     Model,
-    // NonAttribute,
+    NonAttribute,
 //   BelongsToManyGetAssociationsMixin,
 } from 'sequelize';
 
 import { hashPassword } from '../../utils/auth/auth';
 import sequelize from './sequelize';
+import Task from './task.model';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>>{
     declare id: CreationOptional<number>;
@@ -22,17 +23,17 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>>{
     declare createdAt: CreationOptional<Date | null>;
 
     //    declare role?:NonAttribute<any>;
-    //    declare tasks?:NonAttribute<any[]>;
+    declare tasks?:NonAttribute<Task[]>;
     //    declare projects?:NonAttribute<any[]>;
 
     // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
     // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
 
-    // static associations: {
-    //     // role:Association<User,any>;
-    //     // tasks:Association<User,any>;
-    //     // projects:Association<User,any>;
-    // };
+    static associations: {
+        // role:Association<User,any>;
+        tasks:Association<User,Task>;
+        // projects:Association<User,any>;
+    };
 }
 
 User.init({

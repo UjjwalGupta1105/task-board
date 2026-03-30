@@ -16,3 +16,7 @@ export type UserResponse = {
   email: string;
   token: string;
 };
+
+export type AuthCheckDto = {
+    authToken: string;
+}

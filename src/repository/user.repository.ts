@@ -19,26 +19,26 @@ class UserRepository extends BaseRepository<User> {
     }
     
 
-    // async findById (id: number): Promise<User | null> {
-    //     const user = await this.model.findByPk(id, {
-    //         attributes: ['fullName','email', 'roleId', 'deletedAt', 'createdAt'],
-    //         // include: [
-    //         //     {
-    //         //         association: User.associations.role,
-    //         //         attributes: ['id','name']
-    //         //     },
-    //         //     {
-    //         //         association: User.associations.tasks,
-    //         //         attributes: ['id','name','description']
-    //         //     },
-    //         //     {
-    //         //         association: User.associations.projects,
-    //         //         attributes: ['id','name', 'description', 'createdAt']
-    //         //     }
-    //         // ]
-    //     });
-    //     return user;
-    // }   
+    async findById (id: number): Promise<User | null> {
+        const user = await this.model.findByPk(id, {
+            attributes: ['fullName','email', 'roleId', 'deletedAt', 'createdAt'],
+            // include: [
+            //     {
+            //         association: User.associations.role,
+            //         attributes: ['id','name']
+            //     },
+            //     {
+            //         association: User.associations.tasks,
+            //         attributes: ['id','name','description']
+            //     },
+            //     {
+            //         association: User.associations.projects,
+            //         attributes: ['id','name', 'description', 'createdAt']
+            //     }
+            // ]
+        });
+        return user;
+    }   
 }
 
 export default UserRepository;

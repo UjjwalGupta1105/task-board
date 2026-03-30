@@ -1,37 +1,37 @@
-import {
-  Model,
-  InferAttributes,
-  InferCreationAttributes,
-  DataTypes,
-  CreationOptional,
-  Association,
-  NonAttribute,
-  BelongsToManyGetAssociationsMixin,
-} from 'sequelize';
-import sequelize from './sequelize';
-import { hashPassword } from '../../utils/auth/auth';
-import User from './user.model';
+// import {
+//     Association,
+//     BelongsToManyGetAssociationsMixin,
+//     CreationOptional,
+//     DataTypes,
+//     InferAttributes,
+//     InferCreationAttributes,
+//     Model,
+//     NonAttribute,
+// } from 'sequelize';
 
-class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>>{
-   declare id: CreationOptional<number>;
-   declare data: string;
-   declare userId: number;
-   declare taskId: number;
-   declare createdAt: Date;
+// import sequelize from './sequelize';
+// import User from './user.model';
 
-//    declare role?:NonAttribute<any>;
-//    declare tasks?:NonAttribute<any[]>;
-//    declare projects?:NonAttribute<any[]>;
+// class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>>{
+//     declare id: CreationOptional<number>;
+//     declare data: string;
+//     declare userId: number;
+//     declare taskId: number;
+//     declare createdAt: Date;
 
-    // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
-    // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
+//     //    declare role?:NonAttribute<any>;
+//     //    declare tasks?:NonAttribute<any[]>;
+//     //    declare projects?:NonAttribute<any[]>;
 
-    static associations: {
-        role:Association<User,any>;
-        tasks:Association<User,any>;
-        projects:Association<User,any>;
-    }
-}
+//     // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
+//     // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
+
+//     static associations: {
+//         role:Association<User,any>;
+//         tasks:Association<User,any>;
+//         projects:Association<User,any>;
+//     };
+// }
 
 
-export default Comment;
+// export default Comment;

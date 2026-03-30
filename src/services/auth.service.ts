@@ -1,7 +1,6 @@
-import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
-
 import logger from '../configs/logger.config';
-import { LoginUserDto, RegisterUserDto, UserResponse } from '../dtos/user.dto';
+import User from '../db/models/user.model';
+import {  LoginUserDto, RegisterUserDto, UserResponse } from '../dtos/user.dto';
 import UserRepository from '../repository/user.repository';
 import { checkPassword, createToken, verifyToken } from '../utils/auth/auth';
 import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from '../utils/errors/app.error';
@@ -76,21 +75,20 @@ class AuthService {
         }
     }
 
-    isAuthenticated(authToken: string){
+    async isAuthenticated(authToken: string): Promise<User | null> {
         try {
             const decoded = verifyToken(authToken as string);
-            return decoded;
+            const getUser=await this.userRepository.findById(decoded.id);
+            if(!getUser){
+                throw new NotFoundError('User not found');
+            }
+            return getUser;
             
         } catch (error) {
-            if (error instanceof TokenExpiredError) {
-                return new UnauthorizedError('Session expired. Please login again.');
-            } else if (error instanceof JsonWebTokenError) {
-                throw new UnauthorizedError('Invalid token');
-            } else {
-                throw new UnauthorizedError('Verification of token failed');
-            }
-      
+            logger.error(error);
+            throw new UnauthorizedError('Verification of token failed');
         }
     }
 }
+
 export default AuthService;

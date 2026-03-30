@@ -26,7 +26,7 @@ export const serverConfig: ServerConfig =  {
     SALT : Number(process.env.SALT),
     JWT_SECRET : String(process.env.JWT_SECRET),
     JWT_EXPRIRES_IN : String(process.env.JWT_EXPRIRES_IN),
-    ENVIRONMENT : Boolean(process.env.DEV_ENVIRONMENT)
+    ENVIRONMENT : Boolean(process.env.DEV_ENVIRONMENT),
 };
 
 export const dbConfig: DBConfig = {
