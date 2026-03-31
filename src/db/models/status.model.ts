@@ -8,8 +8,7 @@ import {
 
 import sequelize from './sequelize';
 
-
-class Status extends Model<InferAttributes<Status>, InferCreationAttributes<Status>>{
+class Status extends Model<InferAttributes<Status>, InferCreationAttributes<Status>> {
     declare id: CreationOptional<number>;
     declare name: string;
 }
@@ -20,14 +19,13 @@ Status.init({
         autoIncrement: true,
         primaryKey: true
     },
-
     name: {
         type: DataTypes.STRING(100),
-        allowNull: false
-    },
-
-},{
-    tableName: 'Status',
+        allowNull: false,
+        unique: true
+    }
+}, {
+    tableName: 'statuses',
     sequelize,
     underscored: true,
     timestamps: false

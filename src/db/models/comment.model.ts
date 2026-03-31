@@ -1,37 +1,48 @@
-// import {
-//     Association,
-//     BelongsToManyGetAssociationsMixin,
-//     CreationOptional,
-//     DataTypes,
-//     InferAttributes,
-//     InferCreationAttributes,
-//     Model,
-//     NonAttribute,
-// } from 'sequelize';
+import {
+    CreationOptional,
+    DataTypes,
+    InferAttributes,
+    InferCreationAttributes,
+    Model,
+} from 'sequelize';
 
-// import sequelize from './sequelize';
-// import User from './user.model';
+import sequelize from './sequelize';
 
-// class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>>{
-//     declare id: CreationOptional<number>;
-//     declare data: string;
-//     declare userId: number;
-//     declare taskId: number;
-//     declare createdAt: Date;
+class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
+    declare id: CreationOptional<number>;
+    declare data: string;
+    declare userId: number;
+    declare taskId: number;
+    declare createdAt: CreationOptional<Date>;
+}
 
-//     //    declare role?:NonAttribute<any>;
-//     //    declare tasks?:NonAttribute<any[]>;
-//     //    declare projects?:NonAttribute<any[]>;
+Comment.init({
+    id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    data: {
+        type: DataTypes.STRING(500),
+        allowNull: false
+    },
+    userId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
+    },
+    taskId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
+}, {
+    tableName: 'comments',
+    sequelize,
+    underscored: true,
+    timestamps: false
+});
 
-//     // declare getRoles: BelongsToManyGetAssociationsMixin<any>;
-//     // declare getSkills: BelongsToManyGetAssociationsMixin<any>;
-
-//     static associations: {
-//         role:Association<User,any>;
-//         tasks:Association<User,any>;
-//         projects:Association<User,any>;
-//     };
-// }
-
-
-// export default Comment;
+export default Comment;
