@@ -75,8 +75,11 @@ class AuthService {
         }
     }
 
-    async isAuthenticated(authToken: string): Promise<User | null> {
+    async isAuthenticated(authToken: string | undefined): Promise<User | null> {
         try {
+            if (!authToken) {
+                throw new UnauthorizedError('Token not provided');
+            }
             const decoded = verifyToken(authToken as string);
             const getUser=await this.userRepository.findById(decoded.id);
             if(!getUser){
@@ -86,7 +89,10 @@ class AuthService {
             
         } catch (error) {
             logger.error(error);
-            throw new UnauthorizedError('Verification of token failed');
+            if(error instanceof UnauthorizedError || error instanceof NotFoundError){
+                throw error;
+            }
+            throw new InternalServerError('Verification of token failed');
         }
     }
 }

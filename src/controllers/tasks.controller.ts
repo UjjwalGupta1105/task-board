@@ -1,9 +1,14 @@
-// import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-// async function createTasksHandler=(req:Request,res:Response,next:NextFunction)=>{
-//  try {
+async function createTasksHandler(req:Request,res:Response,next:NextFunction){
+    // try {
+        
+    // } catch (error) {
     
-//  } catch (error) {
-    
-//  }
-// }
+    // }
+}
+
+
+export default {
+    createTasksHandler,
+};

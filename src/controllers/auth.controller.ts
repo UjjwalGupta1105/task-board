@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import logger from '../configs/logger.config';
-import { AuthCheckDto, LoginUserDto, RegisterUserDto } from '../dtos/user.dto';
+import { LoginUserDto, RegisterUserDto } from '../dtos/user.dto';
 import UserRepository from '../repository/user.repository';
 import AuthService from '../services/auth.service';
 
@@ -51,8 +51,8 @@ async function loginHandler(req: Request, res: Response, next: NextFunction) {
 
 async function isAuthenticatedHandler(req: Request, res: Response, next: NextFunction) {
     try{
-        const requestBody: AuthCheckDto = req.body ;
-        const response = await authService.isAuthenticated(requestBody.authToken);
+        const token: string | undefined = req.headers.authorization ;
+        const response = await authService.isAuthenticated(token);
         res.status(StatusCodes.ACCEPTED).json({
             success : true ,
             message : 'User is authenticated' ,
