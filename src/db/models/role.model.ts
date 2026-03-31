@@ -1,43 +1,34 @@
-// import {
-//   Model,
-//   InferAttributes,
-//   InferCreationAttributes,
-//   DataTypes,
-//   CreationOptional,
-//   Association,
-//   NonAttribute,
-//   BelongsToManyGetAssociationsMixin,
-// } from 'sequelize';
-// import sequelize from './sequelize';
-// import User from './user.model';
+import {
+    CreationOptional,
+    DataTypes,
+    InferAttributes,
+    InferCreationAttributes,
+    Model,
+} from 'sequelize';
 
-// class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>>{
-//    declare id: CreationOptional<number>;
-//    declare name: string;
+import sequelize from './sequelize';
 
-//    declare users?:NonAttribute<User[]>;
+class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
+    declare id: CreationOptional<number>;
+    declare name: string;
+}
 
-//     // declare getUsers: BelongsToManyGetAssociationsMixin<any>;
+Role.init({
+    id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    name: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        unique: true
+    }
+}, {
+    tableName: 'roles',
+    sequelize,
+    underscored: true,
+    timestamps: false
+});
 
-//     static associations: {
-//         user:Association<Role,User>;
-//     }
-// }
-
-// Role.init({
-//     id: {
-//         type: DataTypes.INTEGER.UNSIGNED,
-//         autoIncrement: true,
-//         primaryKey: true
-//     },
-//     name: {
-//         type: DataTypes.STRING(100),
-//         allowNull: false
-//     },
-
-// },{
-//     tableName: 'roles',
-//     sequelize,
-// })
-
-// export default Role;
+export default Role;
