@@ -17,7 +17,7 @@ import User from './user.model';
 class Task extends Model<InferAttributes<Task>, InferCreationAttributes<Task>>{
     declare id: CreationOptional<number>;
     declare name: string;
-    declare description: string;
+    declare description: string | null;
     declare assignedFrom: number;
     declare assignedTo: number;
     declare projectId: number;

@@ -6,9 +6,6 @@ export default {
       CREATE TABLE IF NOT EXISTS role_assignments (
         assigneeRoleId INT UNSIGNED NOT NULL,
         assignerRoleId INT UNSIGNED NOT NULL
-        // FOREIGN KEY (assigneeRoleId) REFERENCES roles(id) ON DELETE CASCADE,
-        // FOREIGN KEY (assignerRoleId) REFERENCES roles(id) ON DELETE CASCADE,
-
       );
     `);
     },

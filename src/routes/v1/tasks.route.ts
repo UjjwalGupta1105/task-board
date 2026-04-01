@@ -6,6 +6,6 @@ import { createTaskSchema } from '../../validators/tasks.validator';
 
 const tasksRouter=Router();
 
-tasksRouter.post('/',validateRequestBody(createTaskSchema),tasksController.createTasksHandler);
+tasksRouter.post('/create-task',validateRequestBody(createTaskSchema),tasksController.createTasksHandler);
 
 export default tasksRouter;
